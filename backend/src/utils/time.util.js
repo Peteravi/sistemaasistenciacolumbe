@@ -1,19 +1,52 @@
+const TIME_ZONE = 'America/Guayaquil';
+
 function nowParts() {
   const now = new Date();
 
-  const yyyy = now.getFullYear();
-  const mm = String(now.getMonth() + 1).padStart(2, '0');
-  const dd = String(now.getDate()).padStart(2, '0');
-  const hh = String(now.getHours()).padStart(2, '0');
-  const mi = String(now.getMinutes()).padStart(2, '0');
-  const ss = String(now.getSeconds()).padStart(2, '0');
+  const formatter = new Intl.DateTimeFormat('en-CA', {
+    timeZone: TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: false
+  });
+
+  const parts = formatter.formatToParts(now);
+
+  const values = {};
+
+  for (const part of parts) {
+    if (part.type !== 'literal') {
+      values[part.type] = part.value;
+    }
+  }
+
+  const weekdayFormatter = new Intl.DateTimeFormat('en-US', {
+    timeZone: TIME_ZONE,
+    weekday: 'short'
+  });
+
+  const weekday = weekdayFormatter.format(now);
+
+  const dayMap = {
+    Mon: 1,
+    Tue: 2,
+    Wed: 3,
+    Thu: 4,
+    Fri: 5,
+    Sat: 6,
+    Sun: 7
+  };
 
   return {
-    date: `${yyyy}-${mm}-${dd}`,
-    time: `${hh}:${mi}:${ss}`,
-    dateTime: `${yyyy}-${mm}-${dd} ${hh}:${mi}:${ss}`,
+    date: `${values.year}-${values.month}-${values.day}`,
+    time: `${values.hour}:${values.minute}:${values.second}`,
+    dateTime: `${values.year}-${values.month}-${values.day} ${values.hour}:${values.minute}:${values.second}`,
     jsDate: now,
-    day: now.getDay() === 0 ? 7 : now.getDay()
+    day: dayMap[weekday]
   };
 }
 
@@ -33,25 +66,42 @@ function minutesWorked(row) {
   const retornoAlmuerzo = timeToMinutes(row.retorno_almuerzo);
   const salida = timeToMinutes(row.salida);
 
-  if ([entrada, salidaAlmuerzo, retornoAlmuerzo, salida].some((v) => v === null)) {
+  if (
+    [entrada, salidaAlmuerzo, retornoAlmuerzo, salida].some(
+      (v) => v === null
+    )
+  ) {
     return 0;
   }
 
-  return Math.max(0, (salidaAlmuerzo - entrada) + (salida - retornoAlmuerzo));
+  return Math.max(
+    0,
+    (salidaAlmuerzo - entrada) + (salida - retornoAlmuerzo)
+  );
 }
 
 function buildDateRange(start, end) {
   const result = [];
-  const cursor = new Date(`${start}T00:00:00`);
-  const limit = new Date(`${end}T00:00:00`);
+
+  const [startYear, startMonth, startDay] = start.split('-').map(Number);
+  const [endYear, endMonth, endDay] = end.split('-').map(Number);
+
+  const cursor = new Date(
+    Date.UTC(startYear, startMonth - 1, startDay)
+  );
+
+  const limit = new Date(
+    Date.UTC(endYear, endMonth - 1, endDay)
+  );
 
   while (cursor <= limit) {
-    const yyyy = cursor.getFullYear();
-    const mm = String(cursor.getMonth() + 1).padStart(2, '0');
-    const dd = String(cursor.getDate()).padStart(2, '0');
+    const yyyy = cursor.getUTCFullYear();
+    const mm = String(cursor.getUTCMonth() + 1).padStart(2, '0');
+    const dd = String(cursor.getUTCDate()).padStart(2, '0');
 
     result.push(`${yyyy}-${mm}-${dd}`);
-    cursor.setDate(cursor.getDate() + 1);
+
+    cursor.setUTCDate(cursor.getUTCDate() + 1);
   }
 
   return result;
