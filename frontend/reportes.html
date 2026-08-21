@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Reportes | Sistema GAD Columbe</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark small">GC</div>
+        <div>
+          <strong>GAD Columbe</strong>
+          <span>Reportes</span>
+        </div>
+      </div>
+
+      <nav class="side-nav">
+        <a href="marcaciones.html">Marcaciones</a>
+        <a class="admin-only" href="admin.html">Administración</a>
+        <a class="active" href="reportes.html">Reportes</a>
+        <button type="button" id="logoutBtn">Cerrar sesión</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Control institucional</p>
+          <h1>Reportes de asistencia</h1>
+        </div>
+        <div class="user-pill">
+          <span id="currentUserName">Usuario</span>
+          <small id="currentUserRole">Rol</small>
+        </div>
+      </header>
+
+      <section class="panel">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">Filtros</p>
+            <h2>Consulta por funcionario y rango de fechas</h2>
+          </div>
+        </div>
+
+        <form id="reportForm" class="report-filters">
+          <div class="form-group">
+            <label for="reportType">Tipo de reporte</label>
+            <select id="reportType">
+              <option value="ASISTENCIA_DIARIA">Asistencia diaria</option>
+              <option value="ATRASOS">Atrasos</option>
+              <option value="FALTAS">Faltas</option>
+              <option value="MARCACIONES_INCOMPLETAS">Marcaciones incompletas</option>
+              <option value="REPORTE_GENERAL">Reporte general</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="employeeFilter">Funcionario</label>
+            <select id="employeeFilter"></select>
+          </div>
+          <div class="form-group">
+            <label for="dateStart">Fecha inicio</label>
+            <input id="dateStart" type="date" required />
+          </div>
+          <div class="form-group">
+            <label for="dateEnd">Fecha fin</label>
+            <input id="dateEnd" type="date" required />
+          </div>
+          <div class="form-actions report-actions">
+            <button class="btn btn-primary" type="submit">Generar reporte</button>
+            <button class="btn btn-secondary" type="button" id="exportCsvBtn">Exportar CSV</button>
+            <button class="btn btn-secondary" type="button" id="printReportBtn">Imprimir</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="stats-grid">
+        <article class="stat-card">
+          <span>Total registros</span>
+          <strong id="statTotal">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Atrasos</span>
+          <strong id="statLate">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Faltas</span>
+          <strong id="statAbsences">0</strong>
+        </article>
+        <article class="stat-card">
+          <span>Incompletos</span>
+          <strong id="statIncomplete">0</strong>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">Resultado</p>
+            <h2 id="reportTitle">Reporte generado</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table id="reportTable">
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Cédula</th>
+                <th>Funcionario</th>
+                <th>Entrada</th>
+                <th>Salida almuerzo</th>
+                <th>Retorno</th>
+                <th>Salida</th>
+                <th>Estado</th>
+                <th>Atraso</th>
+              </tr>
+            </thead>
+            <tbody id="reportBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/reportes.js"></script>
+</body>
+</html>

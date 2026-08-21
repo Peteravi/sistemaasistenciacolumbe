@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Marcaciones | Sistema GAD Columbe</title>
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <div class="app-layout">
+    <aside class="sidebar">
+      <div class="sidebar-brand">
+        <div class="brand-mark small">GC</div>
+        <div>
+          <strong>GAD Columbe</strong>
+          <span>Jornada laboral</span>
+        </div>
+      </div>
+
+      <nav class="side-nav">
+        <a class="active" href="marcaciones.html">Marcaciones</a>
+        <a href="reportes.html">Mis reportes</a>
+        <a class="admin-only" href="admin.html">Administración</a>
+        <button type="button" id="logoutBtn">Cerrar sesión</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Panel del funcionario</p>
+          <h1>Registro de jornada laboral</h1>
+        </div>
+        <div class="user-pill">
+          <span id="currentUserName">Usuario</span>
+          <small id="currentUserRole">Rol</small>
+        </div>
+      </header>
+
+      <section class="grid-two">
+        <article class="panel clock-panel">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Hora oficial</p>
+              <h2 id="serverDate">Fecha del servidor</h2>
+            </div>
+            <span class="status-chip success" id="serverMode">Servidor</span>
+          </div>
+          <div class="clock" id="serverTime">--:--:--</div>
+          <p class="muted">
+            La marcación debe registrarse con la hora proporcionada por el servidor del sistema.
+          </p>
+        </article>
+
+        <article class="panel">
+          <div class="card-header">
+            <div>
+              <p class="eyebrow">Estado de red</p>
+              <h2>Validación por IP</h2>
+            </div>
+            <span class="status-chip" id="ipStatus">Pendiente</span>
+          </div>
+          <dl class="data-list">
+            <div>
+              <dt>IP detectada</dt>
+              <dd id="detectedIp">Consultando backend</dd>
+            </div>
+            <div>
+              <dt>Regla aplicada</dt>
+              <dd id="ipRule">Red institucional autorizada</dd>
+            </div>
+          </dl>
+        </article>
+      </section>
+
+      <section class="panel">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">Marcación diaria</p>
+            <h2>Seleccione la acción que corresponde</h2>
+          </div>
+          <span class="status-chip success" id="dayStatus">Disponible</span>
+        </div>
+
+        <div class="mark-grid">
+          <button class="mark-card" data-type="ENTRADA">
+            <span>Entrada</span>
+            <strong id="time-ENTRADA">Pendiente</strong>
+          </button>
+          <button class="mark-card" data-type="SALIDA_ALMUERZO">
+            <span>Salida a almuerzo</span>
+            <strong id="time-SALIDA_ALMUERZO">Pendiente</strong>
+          </button>
+          <button class="mark-card" data-type="RETORNO_ALMUERZO">
+            <span>Retorno de almuerzo</span>
+            <strong id="time-RETORNO_ALMUERZO">Pendiente</strong>
+          </button>
+          <button class="mark-card" data-type="SALIDA">
+            <span>Fin De Labores </span>
+            <strong id="time-SALIDA">Pendiente</strong>
+          </button>
+        </div>
+
+        <div id="markMessage" class="form-message"></div>
+      </section>
+
+      <section class="panel">
+        <div class="card-header">
+          <div>
+            <p class="eyebrow">Historial</p>
+            <h2>Marcaciones recientes</h2>
+          </div>
+        </div>
+        <div class="table-wrap">
+          <table>
+            <thead>
+              <tr>
+                <th>Fecha</th>
+                <th>Tipo</th>
+                <th>Hora</th>
+                <th>IP</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="historyBody"></tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <script src="js/config.js"></script>
+  <script src="js/marcaciones.js"></script>
+</body>
+</html>
