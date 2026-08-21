@@ -17,19 +17,43 @@
       "dest": "/api/index.js"
     },
     {
-      "src": "/(?:login)?/?",
+      "src": "/",
       "dest": "/frontend/index.html"
     },
     {
-      "src": "/marcaciones/?",
-      "dest": "/frontend/marcaciones.html"
+      "src": "/login",
+      "dest": "/frontend/index.html"
     },
     {
-      "src": "/(?:admin|administracion)/?",
+      "src": "/index.html",
+      "dest": "/frontend/index.html"
+    },
+    {
+      "src": "/admin",
       "dest": "/frontend/admin.html"
     },
     {
-      "src": "/reportes/?",
+      "src": "/administracion",
+      "dest": "/frontend/admin.html"
+    },
+    {
+      "src": "/admin.html",
+      "dest": "/frontend/admin.html"
+    },
+    {
+      "src": "/marcaciones",
+      "dest": "/frontend/marcaciones.html"
+    },
+    {
+      "src": "/marcaciones.html",
+      "dest": "/frontend/marcaciones.html"
+    },
+    {
+      "src": "/reportes",
+      "dest": "/frontend/reportes.html"
+    },
+    {
+      "src": "/reportes.html",
       "dest": "/frontend/reportes.html"
     },
     {
