@@ -5,8 +5,8 @@
   "description": "Sistema de asistencia GAD Columbe preparado para Vercel",
   "main": "backend/src/server.js",
   "scripts": {
-    "start": "node backend/src/server.js",
-    "dev": "nodemon backend/src/server.js",
+    "start": "node init && node backend/src/server.js",
+    "dev": "node init && nodemon backend/src/server.js",
     "db:init": "node backend/src/config/database-init.js",
     "check": "node -e \"require('./backend/src/app')\""
   },

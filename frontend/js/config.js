@@ -235,12 +235,6 @@ function setStored(key, value) {
 }
 
 function seedFrontendData() {
-  if (!APP_CONFIG.demoMode) return;
-
-  if (!localStorage.getItem(APP_CONFIG.storageKeys.users)) {
-    setStored(APP_CONFIG.storageKeys.users, DEMO_USERS);
-  }
-
   if (!localStorage.getItem(APP_CONFIG.storageKeys.schedules)) {
     setStored(APP_CONFIG.storageKeys.schedules, [
       {
@@ -254,44 +248,9 @@ function seedFrontendData() {
     ]);
   }
 
-  if (!localStorage.getItem(APP_CONFIG.storageKeys.departments)) {
-    setStored(APP_CONFIG.storageKeys.departments, [
-      'Presidencia',
-      'Secretaría/Tesorería',
-      'Vocalías',
-      'Planificación',
-      'Servicios Generales',
-      'Transporte y Maquinaria'
-    ]);
-  }
-
-  if (!localStorage.getItem(APP_CONFIG.storageKeys.positions)) {
-    setStored(APP_CONFIG.storageKeys.positions, [
-      'PRESIDENTE',
-      'SECRETARIO/TESORERO',
-      'VOCAL PRINCIPAL',
-      'VOCAL ALTERNO',
-      'VOCAL ALTERNO PRINCIPALIZADO',
-      'TECNICO DE PLANIFICACION',
-      'AUXILIAR DE SERVICIO',
-      'OPERADOR DE RETROEXCAVADORA',
-      'CHOFER DE VEHICULO',
-      'CHOFER DE VOLQUETE'
-    ]);
-  }
-
-  if (!localStorage.getItem(APP_CONFIG.storageKeys.ips)) {
-    setStored(APP_CONFIG.storageKeys.ips, [
-      { nombre: 'Localhost desarrollo IPv4', tipo: 'IP_EXACTA', inicio: '127.0.0.1', fin: '' },
-      { nombre: 'Localhost desarrollo IPv6', tipo: 'IP_EXACTA', inicio: '::1', fin: '' },
-      { nombre: 'Red institucional de ejemplo', tipo: 'RANGO_IP', inicio: '192.168.1.1', fin: '192.168.1.254' }
-    ]);
-  }
-
-  if (!localStorage.getItem(APP_CONFIG.storageKeys.marks)) {
-    setStored(APP_CONFIG.storageKeys.marks, []);
-  }
+  if (!APP_CONFIG.demoMode) return;
 }
+
 
 function getCurrentUser() {
   return getStored(APP_CONFIG.storageKeys.currentUser, null);
